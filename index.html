@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#17120d" />
+  <meta name="description" content="Rádio e player dedicado à moda de viola." />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="stylesheet" href="./style.css" />
+  <title>R-DIOMODADEVIOLA</title>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <span class="eyebrow">R-DIOMODADEVIOLA</span>
+        <h1>Moda de Viola</h1>
+        <p class="subtitle">Música caipira, raízes e tradição.</p>
+      </div>
+      <span class="status-dot" title="Aplicativo pronto"></span>
+    </header>
+
+    <section class="hero-card">
+      <div class="record-icon" aria-hidden="true">♫</div>
+      <div class="hero-copy">
+        <span class="label">AGORA TOCANDO</span>
+        <h2 id="track-title">Aguardando música</h2>
+        <p id="track-artist">Escolha uma fonte para começar</p>
+      </div>
+    </section>
+
+    <section class="player-card" aria-label="Controles do player">
+      <div class="progress-row">
+        <span id="current-time">0:00</span>
+        <input id="progress" type="range" min="0" max="100" value="0" aria-label="Progresso da música" />
+        <span id="duration">0:00</span>
+      </div>
+      <div class="controls">
+        <button id="previous-button" class="control-button" type="button" aria-label="Música anterior">⏮</button>
+        <button id="play-button" class="play-button" type="button" aria-label="Reproduzir">▶</button>
+        <button id="next-button" class="control-button" type="button" aria-label="Próxima música">⏭</button>
+      </div>
+      <div class="volume-row">
+        <span aria-hidden="true">🔊</span>
+        <input id="volume" type="range" min="0" max="1" step="0.01" value="0.8" aria-label="Volume" />
+      </div>
+    </section>
+
+    <section class="source-card">
+      <div class="section-heading">
+        <div>
+          <span class="label">FONTE DE ÁUDIO</span>
+          <h2>Escolha como ouvir</h2>
+        </div>
+      </div>
+      <div class="source-grid">
+        <button class="source-option active" data-source="audius" type="button">
+          <strong>Audius</strong>
+          <span>Catálogo musical</span>
+        </button>
+        <button class="source-option" data-source="jamendo" type="button">
+          <strong>Jamendo</strong>
+          <span>Músicas licenciadas</span>
+        </button>
+        <button class="source-option" data-source="radio" type="button">
+          <strong>Rádio 24h</strong>
+          <span>Transmissão contínua</span>
+        </button>
+      </div>
+      <p id="source-message" class="message">A integração da fonte será ativada na próxima etapa.</p>
+    </section>
+
+    <section class="playlist-card">
+      <div class="section-heading">
+        <div>
+          <span class="label">PLAYLIST</span>
+          <h2>Próximas músicas</h2>
+        </div>
+        <span id="playlist-count" class="count">0 faixas</span>
+      </div>
+      <div id="playlist" class="playlist-empty">
+        Nenhuma faixa carregada ainda.
+      </div>
+    </section>
+
+    <footer>
+      <span>Feito para valorizar a moda de viola.</span>
+    </footer>
+  </main>
+  <audio id="audio-player" preload="metadata"></audio>
+  <script src="./app.js"></script>
+</body>
+</html>
