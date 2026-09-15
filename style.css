@@ -1,0 +1,128 @@
+:root {
+  color-scheme: dark;
+  --bg: #100e0c;
+  --surface: #1b1713;
+  --surface-2: #241d17;
+  --border: rgba(255, 220, 170, 0.12);
+  --text: #fff8ed;
+  --muted: #b9a997;
+  --accent: #d79a4b;
+  --accent-strong: #f0b866;
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: radial-gradient(circle at top, #2a1d13 0, var(--bg) 42%);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button, input { font: inherit; }
+button { cursor: pointer; }
+
+.app-shell {
+  width: min(100% - 32px, 720px);
+  margin: 0 auto;
+  padding: 28px 0 24px;
+}
+
+.topbar, .section-heading, .progress-row, .volume-row {
+  display: flex;
+  align-items: center;
+}
+
+.topbar, .section-heading { justify-content: space-between; gap: 16px; }
+
+.eyebrow, .label {
+  display: block;
+  color: var(--accent-strong);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+h1, h2, p { margin: 0; }
+h1 { margin-top: 7px; font-size: clamp(1.8rem, 7vw, 3rem); line-height: 1; }
+h2 { margin-top: 6px; font-size: 1.15rem; }
+.subtitle { margin-top: 10px; color: var(--muted); }
+.status-dot { width: 11px; height: 11px; border-radius: 50%; background: #72c58a; box-shadow: 0 0 0 6px rgba(114, 197, 138, 0.1); }
+
+.hero-card, .player-card, .source-card, .playlist-card {
+  margin-top: 22px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: rgba(27, 23, 19, 0.9);
+  box-shadow: var(--shadow);
+}
+
+.hero-card { display: flex; align-items: center; gap: 18px; padding: 24px; }
+.record-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 72px;
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+  background: linear-gradient(145deg, #e1a354, #75451e);
+  color: #24160b;
+  font-size: 2.4rem;
+  box-shadow: inset 0 1px rgba(255,255,255,.25);
+}
+.hero-copy { min-width: 0; }
+.hero-copy h2, .hero-copy p { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hero-copy p { margin-top: 7px; color: var(--muted); }
+
+.player-card { padding: 22px; }
+.progress-row { gap: 10px; color: var(--muted); font-size: .78rem; }
+.progress-row input, .volume-row input { flex: 1; accent-color: var(--accent); }
+.controls { display: flex; align-items: center; justify-content: center; gap: 26px; margin: 22px 0; }
+.control-button, .play-button {
+  border: 0;
+  color: var(--text);
+  background: transparent;
+}
+.control-button { font-size: 1.45rem; }
+.play-button {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #211409;
+  font-size: 1.35rem;
+  box-shadow: 0 8px 24px rgba(215, 154, 75, .25);
+}
+.volume-row { gap: 10px; color: var(--muted); }
+
+.source-card, .playlist-card { padding: 22px; }
+.source-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; }
+.source-option {
+  min-width: 0;
+  padding: 14px 10px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  background: var(--surface-2);
+  color: var(--text);
+  text-align: left;
+}
+.source-option strong, .source-option span { display: block; }
+.source-option span { margin-top: 5px; color: var(--muted); font-size: .75rem; }
+.source-option.active { border-color: var(--accent); background: rgba(215, 154, 75, .12); }
+.message { margin-top: 15px; color: var(--muted); font-size: .85rem; line-height: 1.5; }
+.count { color: var(--muted); font-size: .8rem; }
+.playlist-empty { margin-top: 18px; padding: 24px; border: 1px dashed var(--border); border-radius: 15px; color: var(--muted); text-align: center; }
+footer { padding: 24px 0 0; color: #806f5d; text-align: center; font-size: .78rem; }
+
+button:focus-visible, input:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 3px; }
+
+@media (max-width: 480px) {
+  .app-shell { width: min(100% - 22px, 720px); padding-top: 20px; }
+  .hero-card, .player-card, .source-card, .playlist-card { border-radius: 20px; padding: 18px; }
+  .source-grid { grid-template-columns: 1fr; }
+  .source-option { text-align: center; }
+}
