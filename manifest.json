@@ -1,0 +1,11 @@
+{
+  "name": "R-DIOMODADEVIOLA",
+  "short_name": "Moda de Viola",
+  "description": "Player e rádio dedicado à moda de viola.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#100e0c",
+  "theme_color": "#17120d",
+  "lang": "pt-BR",
+  "icons": []
+}
