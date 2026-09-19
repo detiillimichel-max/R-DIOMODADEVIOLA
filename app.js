@@ -58,7 +58,7 @@ function startRadio(station) {
   audio.play().then(() => {
     sourceMessage.textContent = 'Ao vivo: ' + station.name;
   }).catch(() => {
-    sourceMessage.innerHTML = 'Não abriu no player. <a class="open-radio" href="' + station.stream + '" target="_blank" rel="noopener">➜ Abrir rádio</a>';
+    sourceMessage.innerHTML = 'Toque em ▶ para iniciar a transmissão. <a class="open-radio" href="' + station.stream + '" target="_blank" rel="noopener">➜ Abrir rádio</a>';
   });
 }
 
