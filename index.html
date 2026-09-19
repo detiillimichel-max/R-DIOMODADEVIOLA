@@ -49,25 +49,36 @@
     <section class="source-card">
       <div class="section-heading">
         <div>
-          <span class="label">FONTE DE ÁUDIO</span>
+          <span class="label">FONTES</span>
           <h2>Escolha como ouvir</h2>
         </div>
       </div>
       <div class="source-grid">
-        <button class="source-option active" data-source="audius" type="button">
+        <button class="source-option" data-source="audius" type="button">
           <strong>Audius</strong>
           <span>Catálogo musical</span>
         </button>
         <button class="source-option" data-source="jamendo" type="button">
           <strong>Jamendo</strong>
-          <span>Músicas licenciadas</span>
+          <span>Catálogo musical</span>
         </button>
-        <button class="source-option" data-source="radio" type="button">
+        <button class="source-option active" data-source="radio" type="button">
           <strong>Rádio 24h</strong>
           <span>Transmissão contínua</span>
         </button>
       </div>
-      <p id="source-message" class="message">A integração da fonte será ativada na próxima etapa.</p>
+      <p id="source-message" class="message">Escolha uma rádio abaixo. As URLs são streams públicos das próprias estações.</p>
+    </section>
+
+    <section class="radio-card">
+      <div class="section-heading">
+        <div>
+          <span class="label">RÁDIOS AO VIVO</span>
+          <h2>Moda de viola e caipira</h2>
+        </div>
+        <span class="count">stream</span>
+      </div>
+      <div id="radio-list" class="radio-list"></div>
     </section>
 
     <section class="playlist-card">
