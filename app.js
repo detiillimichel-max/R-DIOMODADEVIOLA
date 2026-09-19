@@ -14,7 +14,7 @@ const playlistCount = document.querySelector('#playlist-count');
 const sourceOptions = document.querySelectorAll('.source-option');
 const radioList = document.querySelector('#radio-list');
 
-const radioStations = [
+let radioStations = [
   { id: 'cafe-viola', name: 'Rádio Café Viola', description: 'Sertanejo, sertanejo raiz e música caipira', stream: 'https://stm6.xcast.com.br:9328/;' },
   { id: 'viola-viva', name: 'Viola Viva Caipira', description: 'Música caipira 24 horas', stream: 'https://centova.euroti.com.br:20055/stream' },
   { id: 'buteco-sertanejo', name: 'Rádio Buteco Sertanejo', description: 'Sertanejo, moda de viola e modão', stream: 'https://stream.zeno.fm/6kumndewqbruv' }
@@ -165,6 +165,23 @@ audio.addEventListener('error', () => {
   }
 });
 renderRadios();
+
+async function loadRadioCatalog() {
+  try {
+    const response = await fetch('./api/catalog/radios', { cache: 'no-store' });
+    if (!response.ok) throw new Error('catalog');
+    const catalog = await response.json();
+    if (Array.isArray(catalog.stations) && catalog.stations.length) {
+      radioStations = catalog.stations.slice(0, 15);
+      renderRadios();
+      sourceMessage.textContent = 'Catálogo de rádios atualizado pelo Modo Cinema.';
+    }
+  } catch {
+    // Mantém as três rádios curadas já embutidas no app.
+  }
+}
+
+loadRadioCatalog();
 
 sourceOptions.forEach((option) => {
   option.addEventListener('click', () => {
