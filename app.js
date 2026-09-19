@@ -15,7 +15,7 @@ const sourceOptions = document.querySelectorAll('.source-option');
 const radioList = document.querySelector('#radio-list');
 
 const radioStations = [
-  { id: 'cafe-viola', name: 'Rádio Café Viola', description: 'Sertanejo, sertanejo raiz e música caipira', stream: 'https://stm6.xcast.com.br:9328/' },
+  { id: 'cafe-viola', name: 'Rádio Café Viola', description: 'Sertanejo, sertanejo raiz e música caipira', stream: 'https://stm6.xcast.com.br:9328/;' },
   { id: 'viola-viva', name: 'Viola Viva Caipira', description: 'Música caipira 24 horas', stream: 'https://centova.euroti.com.br:20055/stream' },
   { id: 'buteco-sertanejo', name: 'Rádio Buteco Sertanejo', description: 'Sertanejo, moda de viola e modão', stream: 'https://stream.zeno.fm/6kumndewqbruv' }
 ];
@@ -54,11 +54,11 @@ function startRadio(station) {
   playlistCount.textContent = 'Rádio ao vivo';
   playlistElement.className = 'playlist-empty';
   playlistElement.textContent = 'Transmissão contínua — sem playlist local.';
-  sourceMessage.textContent = 'Conectando à ' + station.name + '...';
+  sourceMessage.innerHTML = 'Conectando à ' + station.name + '...';
   audio.play().then(() => {
     sourceMessage.textContent = 'Ao vivo: ' + station.name;
   }).catch(() => {
-    sourceMessage.textContent = 'Toque em ▶ para iniciar a transmissão.';
+    sourceMessage.innerHTML = 'Não abriu no player. <a class="open-radio" href="' + station.stream + '" target="_blank" rel="noopener">➜ Abrir rádio</a>';
   });
 }
 
@@ -158,7 +158,11 @@ audio.addEventListener('timeupdate', () => {
 audio.addEventListener('loadedmetadata', () => { duration.textContent = formatTime(audio.duration); });
 audio.addEventListener('ended', nextTrack);
 audio.addEventListener('error', () => {
-  sourceMessage.textContent = 'Não foi possível abrir este stream. Escolha outra rádio.';
+  if (selectedSource === 'radio' && audio.src) {
+    sourceMessage.innerHTML = 'O navegador não conseguiu reproduzir este stream. <a class="open-radio" href="' + audio.src + '" target="_blank" rel="noopener">➜ Abrir rádio</a>';
+  } else {
+    sourceMessage.textContent = 'Não foi possível abrir este stream. Escolha outra rádio.';
+  }
 });
 renderRadios();
 
