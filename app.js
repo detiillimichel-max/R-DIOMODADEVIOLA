@@ -157,6 +157,9 @@ audio.addEventListener('timeupdate', () => {
 });
 audio.addEventListener('loadedmetadata', () => { duration.textContent = formatTime(audio.duration); });
 audio.addEventListener('ended', nextTrack);
+audio.addEventListener('error', () => {
+  sourceMessage.textContent = 'Não foi possível abrir este stream. Escolha outra rádio.';
+});
 renderRadios();
 
 sourceOptions.forEach((option) => {
@@ -164,7 +167,11 @@ sourceOptions.forEach((option) => {
     sourceOptions.forEach((item) => item.classList.remove('active'));
     option.classList.add('active');
     selectedSource = option.dataset.source;
-    if (selectedSource === 'radio') {\n      sourceMessage.textContent = 'Escolha uma rádio ao vivo abaixo.';\n    } else {\n      sourceMessage.textContent = `${option.querySelector('strong').textContent} selecionado. O catálogo será conectado pelo roteador/cache na próxima etapa.`;\n    }
+    if (selectedSource === 'radio') {
+      sourceMessage.textContent = 'Escolha uma rádio ao vivo abaixo.';
+    } else {
+      sourceMessage.textContent = `${option.querySelector('strong').textContent} selecionado. O catálogo será conectado pelo roteador/cache na próxima etapa.`;
+    }
   });
 });
 
