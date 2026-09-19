@@ -12,10 +12,55 @@ const sourceMessage = document.querySelector('#source-message');
 const playlistElement = document.querySelector('#playlist');
 const playlistCount = document.querySelector('#playlist-count');
 const sourceOptions = document.querySelectorAll('.source-option');
+const radioList = document.querySelector('#radio-list');
+
+const radioStations = [
+  { id: 'cafe-viola', name: 'Rádio Café Viola', description: 'Sertanejo, sertanejo raiz e música caipira', stream: 'https://stm6.xcast.com.br:9328/' },
+  { id: 'viola-viva', name: 'Viola Viva Caipira', description: 'Música caipira 24 horas', stream: 'https://centova.euroti.com.br:20055/stream' },
+  { id: 'buteco-sertanejo', name: 'Rádio Buteco Sertanejo', description: 'Sertanejo, moda de viola e modão', stream: 'https://stream.zeno.fm/6kumndewqbruv' }
+];
 
 let playlist = [];
 let currentIndex = 0;
 let selectedSource = 'audius';
+
+function renderRadios() {
+  if (!radioList) return;
+  radioList.innerHTML = radioStations.map((station, index) => `
+    <article class="radio-item">
+      <div class="radio-copy">
+        <span class="radio-live">● AO VIVO</span>
+        <strong>${station.name}</strong>
+        <small>${station.description}</small>
+      </div>
+      <button class="radio-play" type="button" data-radio-index="${index}" aria-label="Ouvir ${station.name}">▶</button>
+    </article>
+  `).join('');
+
+  radioList.querySelectorAll('[data-radio-index]').forEach((button) => {
+    button.addEventListener('click', () => startRadio(radioStations[Number(button.dataset.radioIndex)]));
+  });
+}
+
+function startRadio(station) {
+  selectedSource = 'radio';
+  sourceOptions.forEach((item) => item.classList.toggle('active', item.dataset.source === 'radio'));
+  playlist = [];
+  currentIndex = 0;
+  audio.loop = true;
+  audio.src = station.stream;
+  trackTitle.textContent = station.name;
+  trackArtist.textContent = station.description;
+  playlistCount.textContent = 'Rádio ao vivo';
+  playlistElement.className = 'playlist-empty';
+  playlistElement.textContent = 'Transmissão contínua — sem playlist local.';
+  sourceMessage.textContent = 'Conectando à ' + station.name + '...';
+  audio.play().then(() => {
+    sourceMessage.textContent = 'Ao vivo: ' + station.name;
+  }).catch(() => {
+    sourceMessage.textContent = 'Toque em ▶ para iniciar a transmissão.';
+  });
+}
 
 function formatTime(seconds) {
   if (!Number.isFinite(seconds)) return '0:00';
@@ -112,13 +157,14 @@ audio.addEventListener('timeupdate', () => {
 });
 audio.addEventListener('loadedmetadata', () => { duration.textContent = formatTime(audio.duration); });
 audio.addEventListener('ended', nextTrack);
+renderRadios();
 
 sourceOptions.forEach((option) => {
   option.addEventListener('click', () => {
     sourceOptions.forEach((item) => item.classList.remove('active'));
     option.classList.add('active');
     selectedSource = option.dataset.source;
-    sourceMessage.textContent = `${option.querySelector('strong').textContent} selecionado. A conexão com a API será implementada na próxima etapa.`;
+    if (selectedSource === 'radio') {\n      sourceMessage.textContent = 'Escolha uma rádio ao vivo abaixo.';\n    } else {\n      sourceMessage.textContent = `${option.querySelector('strong').textContent} selecionado. O catálogo será conectado pelo roteador/cache na próxima etapa.`;\n    }
   });
 });
 
