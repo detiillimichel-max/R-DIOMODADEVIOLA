@@ -2,7 +2,8 @@ import { getRadioCatalog } from '../../lib/radio-cinema.js';
 
 export default async function handler(request, response) {
   try {
-    const forceRefresh = new URL(request.url).searchParams.get('refresh') === '1';
+    const url = new URL(request.url, 'https://r-diomodadeviola.local');
+    const forceRefresh = url.searchParams.get('refresh') === '1';
     const catalog = await getRadioCatalog({ forceRefresh });
 
     response.setHeader('Cache-Control', 'no-store');
